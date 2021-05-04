@@ -24,26 +24,28 @@ class Game:
         self.TEXT_C = (240, 240, 240)
         self.RESULT_C = (255, 70, 70)
 
-        pygame.init()
-        self.open_img = pygame.image.load('images/type-speed-open.jpg')
-        self.open_img = pygame.transform.scale(self.open_img, (self.w, self.h))
+        pygame.init()   # initialize all imported pygame modules
+        #loading starting image
+        self.open_img = pygame.image.load('images/type-speed-open.jpg')   #load new image from a file
+        self.open_img = pygame.transform.scale(self.open_img, (self.w, self.h))    #resize to new resolution
 
+        #loading background image
         self.bg = pygame.image.load('images/background.jpg')
         self.bg = pygame.transform.scale(self.bg, (750, 500))
 
-        self.screen = pygame.display.set_mode((self.w, self.h))
-        pygame.display.set_caption('CheetaToise')
+        self.screen = pygame.display.set_mode((self.w, self.h))     #Initialize a window or screen for display
+        pygame.display.set_caption("Vishal's Projects")      #Set the current window caption
 
     def draw_text(self, screen, msg, y, fsize, color):
-        font = pygame.font.Font(None, fsize)
-        text = font.render(msg, 1, color)
+        font = pygame.font.Font(None, fsize)   #create a new Font object from a file
+        text = font.render(msg, 1, color)   #draw text on a new Surface
         text_rect = text.get_rect(center=(self.w/2, y))
-        screen.blit(text, text_rect)
-        pygame.display.update()
+        screen.blit(text, text_rect)    #.blit() is used to display newly created Surface on the screen
+        pygame.display.update()   #Update portions of the screen for software displays
 
     def get_sentence(self):
-        sentence = pyjokes.get_joke()
-        if len(sentence) <= 75:
+        sentence = pyjokes.get_joke()  # to display jokes on screen
+        if len(sentence) <=85:
             return sentence
 
     def show_results(self, screen):
@@ -61,6 +63,10 @@ class Game:
                 except:
                     pass
             self.accuracy = count/len(self.word)*100
+            '''
+            count = length of input_text we enter in placeholder
+            len(self.word)= the joke length display on the screen
+            '''
 
             #Calculate words per minute
             self.wpm = len(self.input_text)*60/(5*self.total_time)
@@ -163,3 +169,4 @@ class Game:
 
 
 Game().run()
+
